@@ -1,10 +1,14 @@
-import Header from '@/components/Header';
-import "bootstrap/dist/css/bootstrap.min.css"; 
 import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css"; 
+import Header from '@/components/Header';
+import NavBar from '@/components/NavBar';
 
 function App() {
   return (
+    <>
     <Header/>
+    <NavBar/>
+    </>
   );
 }
 
