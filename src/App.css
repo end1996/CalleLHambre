@@ -17,8 +17,8 @@ body {
 }
 
 .header {
-  position: absolute;
-  bottom: -22vh; /* para que sobrepase el fondo */
+  /* position: absolute; */
+  padding-top: 7vh;
   width: 100%;
 }
 
@@ -32,6 +32,8 @@ body {
   top: 0;
   left: 0;
   z-index: -1;
+  padding: 0;
+  margin: 0;
 }
 
 .company__name {
@@ -45,4 +47,14 @@ body {
   font-size: 1.5rem;
   padding: 0 5px;
   color: #000;
+}
+
+.card-img {
+  object-fit: cover;
+}
+
+@media (max-width: 1024px) {
+  .header {
+    padding-top: 20vh;
+  }
 }

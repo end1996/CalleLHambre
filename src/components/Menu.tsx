@@ -1,37 +1,30 @@
-import type { Product } from "../types";
+import { Card, Col, Row } from "react-bootstrap";
+import { products } from "@/data/products";
 
-interface MenuProps {
-  menu: Product[];
-  addToCart: (product: Product) => void;
-}
-
-export function Menu({ menu, addToCart }: MenuProps) {
+function Menu({}) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4">
-      {menu.map((product) => (
-        <div
-          key={product.id}
-          className="bg-white rounded-2xl shadow-md p-4 flex flex-col justify-between hover:shadow-lg transition"
-        >
-          <div>
-            <h3 className="text-xl font-semibold mb-2 text-gray-800">
-              {product.name}
-            </h3>
-            <p className="text-sm text-gray-500">Categoría: {product.category}</p>
-          </div>
-          <div className="flex items-center justify-between mt-4">
-            <span className="text-lg font-bold text-green-600">
-              S/{product.price.toFixed(2)}
-            </span>
-            <button
-              onClick={() => addToCart(product)}
-              className="bg-green-500 text-white px-4 py-2 rounded-xl hover:bg-green-600 transition"
-            >
-              Agregar
-            </button>
-          </div>
-        </div>
-      ))}
-    </div>
+    <>
+      <Row>
+        {products.map((product) => (
+          <Col xs={12} sm={6} md={6} key={product.id} className="p-3">
+            <Card className="d-flex flex-row">
+              <Card.Img
+                src={product.img}
+                style={{ flex: "0 0 20%", minWidth: "100px" }}
+              />
+              <Card.Body className="d-flex flex-column flex-grow-1">
+                <div className="pb-4">
+                  <Card.Title>{product.title}</Card.Title>
+                  <Card.Subtitle>{product.subtitle}</Card.Subtitle>
+                </div>
+                <Card.Footer className="mt-auto">{product.price}</Card.Footer>
+              </Card.Body>
+            </Card>
+          </Col>
+        ))}
+      </Row>
+    </>
   );
 }
+
+export default Menu;
