@@ -1,9 +1,15 @@
 import { Card, Col, Row } from "react-bootstrap";
 import { products } from "@/data/products";
+import {categories} from "@/data/categories";
 
 function Menu({}) {
   return (
     <>
+    <div>
+      {categories.map((category)=> (
+        <h1>{category.name}</h1>
+      ))}
+    </div>
       <Row>
         {products.map((product) => (
           <Col xs={12} sm={6} md={6} key={product.id} className="p-3">
