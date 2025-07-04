@@ -1,33 +1,53 @@
-import { Card, Col, Row } from "react-bootstrap";
+import { Button, Card, Col, Modal, Row } from "react-bootstrap";
 import { categories } from "@/data/categories";
+import { useState } from "react";
+import { ProductCardContent } from "./ProductCardContent";
+import type { Product } from "./ProductCardContent";
 
 function Menu({}) {
+  const [show, setShow] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+
+  const handleClose = () => setShow(false);
+  const handleShow = (product: Product) => {
+    setSelectedProduct(product);
+    setShow(true);
+  };
+
   return (
     <>
       {categories.map((category) => (
         <div key={category.id_category} className="mb-4 mt-4">
-          <h3>{(category.name).toUpperCase()}</h3>
+          <h3>{category.name.toUpperCase()}</h3>
           <Row>
             {category.products.map((product) => (
               <Col xs={12} sm={6} md={6} key={product.id} className="p-3">
-                <Card className="d-flex flex-row">
-                  <Card.Img
-                    src={product.img}
-                    style={{ flex: "0 0 20%", minWidth: "100px" }}
+                <Card className="d-flex flex-row" onClick={() => handleShow({ ...product, id: String(product.id), price: String(product.price) })}>
+                  <ProductCardContent
+                    product={{ ...product, id: String(product.id), price: String(product.price) }}
                   />
-                  <Card.Body className="d-flex flex-column flex-grow-1">
-                    <div className="pb-4">
-                      <Card.Title>{product.title}</Card.Title>
-                      <Card.Subtitle>{product.subtitle}</Card.Subtitle>
-                    </div>
-                    <Card.Footer className="mt-auto">
-                      {product.price}
-                    </Card.Footer>
-                  </Card.Body>
                 </Card>
               </Col>
             ))}
           </Row>
+          <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>{selectedProduct?.title}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              {selectedProduct && (
+                <ProductCardContent product={selectedProduct} />
+              )}
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClose}>
+                Close
+              </Button>
+              <Button variant="primary" onClick={handleClose}>
+                Save Changes
+              </Button>
+            </Modal.Footer>
+          </Modal>
         </div>
       ))}
     </>
